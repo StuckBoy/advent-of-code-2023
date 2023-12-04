@@ -87,14 +87,22 @@ public class Util {
         AtomicInteger sum = new AtomicInteger();
         games.forEach(game -> {
             if (game.isValidGame()) {
+                /* Debug Stuff
                 int gameNumber = game.getGameNumber();
                 int highestRed = game.getHighestRedCount();
                 int highestGreen = game.getHighestGreenCount();
                 int highestBlue = game.getHighestBlueCount();
                 System.out.println("Game " + gameNumber + " was valid (" + highestRed + ", " + highestGreen + ", " + highestBlue + ")");
+                 */
                 sum.addAndGet(game.getGameNumber());
             }
         });
+        return sum.get();
+    }
+
+    public static int calcCubePower(List<Game> games) {
+        AtomicInteger sum = new AtomicInteger();
+        games.forEach(game -> sum.addAndGet(game.calcPower()));
         return sum.get();
     }
 }

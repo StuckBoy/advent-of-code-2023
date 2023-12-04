@@ -7,10 +7,17 @@ public class Game {
     private boolean validGame;
     private final int gameNumber;
 
+    private final int mostReds;
+    private final int mostGreens;
+    private final int mostBlues;
+
     public Game(int gameNumber, List<Pull> pullList) {
         this.gameNumber = gameNumber;
         this.pullList = pullList;
         validatePulls();
+        mostReds = countColor("red");
+        mostGreens = countColor("green");
+        mostBlues = countColor("blue");
     }
 
     private void validatePulls() {
@@ -75,5 +82,9 @@ public class Game {
 
     public int getHighestBlueCount() {
         return countColor("blue");
+    }
+
+    public int calcPower() {
+        return mostReds * mostGreens * mostBlues;
     }
 }

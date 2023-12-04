@@ -11,7 +11,7 @@ public class PuzzleOne {
     public static void main(String[] args) {
         List<String> input = Util.obtainPuzzleInput(inputFile);
         List<Game> games = Util.dissectGames(input);
-        int validGames = Util.sumValidGames(games);
-        System.out.println("I think it's " + validGames);
+        System.out.println("I think it's " + Util.sumValidGames(games));
+        System.out.println("The power is " + Util.calcCubePower(games));
     }
 }
