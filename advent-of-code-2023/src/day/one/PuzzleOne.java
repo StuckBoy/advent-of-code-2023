@@ -1,32 +1,19 @@
 package day.one;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+
+import helpers.Util;
 
 public class PuzzleOne {
+    private static final String inputFile = "DayOneInput.txt";
 
     public static void main(String[] args) {
-        List<String> input = obtainPuzzleInput();
+        List<String> input = Util.obtainPuzzleInput(inputFile);
         List<Integer> numbers = extractIntegers(input);
-        int finalNumber = doMath(numbers);
+        int finalNumber = Util.doMath(numbers);
         System.out.println("I think it's " + finalNumber);
-    }
-
-    private static List<String> obtainPuzzleInput() {
-        List<String> input = new ArrayList<>();
-        String inputFile = "PuzzleOneInput.txt";
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                input.add(line);
-            }
-        } catch (IOException ignored) {} //YOLO
-        return input;
     }
 
     private static List<Integer> extractIntegers(List<String> input) {
@@ -63,11 +50,5 @@ public class PuzzleOne {
             } catch (NumberFormatException ignored) {}
         }
         return digitPositionMap;
-    }
-
-    private static int doMath(List<Integer> input) {
-        AtomicInteger sum = new AtomicInteger();
-        input.forEach(sum::addAndGet);
-        return sum.get();
     }
 }

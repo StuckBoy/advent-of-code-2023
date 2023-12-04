@@ -1,14 +1,12 @@
 package day.one;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+
+import helpers.Util;
 
 public class PuzzleTwo {
 
@@ -24,23 +22,13 @@ public class PuzzleTwo {
         }
     }
 
-    public static void main(String[] args) {
-        List<String> input = obtainPuzzleInput();
-        List<Integer> numbers = extractIntegers(input);
-        int finalNumber = doMath(numbers);
-        System.out.println("I think it's " + finalNumber);
-    }
+    private static final String inputFile = "DayOneInput.txt";
 
-    private static List<String> obtainPuzzleInput() {
-        List<String> input = new ArrayList<>();
-        String inputFile = "PuzzleOneInput.txt";
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                input.add(line);
-            }
-        } catch (IOException ignored) {} //YOLO
-        return input;
+    public static void main(String[] args) {
+        List<String> input = Util.obtainPuzzleInput(inputFile);
+        List<Integer> numbers = extractIntegers(input);
+        int finalNumber = Util.doMath(numbers);
+        System.out.println("I think it's " + finalNumber);
     }
 
     private static List<Integer> extractIntegers(List<String> input) {
@@ -102,12 +90,5 @@ public class PuzzleTwo {
             }
         }
         return digits;
-    }
-
-    private static int doMath(List<Integer> input) {
-        AtomicInteger sum = new AtomicInteger();
-        input.forEach(sum::addAndGet);
-        input.forEach(System.out::println);
-        return sum.get();
     }
 }
