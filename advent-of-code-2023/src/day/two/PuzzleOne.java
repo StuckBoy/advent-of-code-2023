@@ -10,7 +10,8 @@ public class PuzzleOne {
 
     public static void main(String[] args) {
         List<String> input = Util.obtainPuzzleInput(inputFile);
-        int idSum = 0;
-        System.out.println("I think it's " + idSum);
+        List<Game> games = Util.dissectGames(input);
+        int validGames = Util.sumValidGames(games);
+        System.out.println("I think it's " + validGames);
     }
 }
