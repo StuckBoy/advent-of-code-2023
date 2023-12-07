@@ -7,8 +7,8 @@ import helpers.Util;
 
 public class PuzzleOne {
 
-    private static final String inputFile = "TestInput.txt";
-//    private static final String inputFile = "DayThreeInput.txt";
+//    private static final String inputFile = "TestInput.txt";
+    private static final String inputFile = "DayThreeInput.txt";
 
     private static List<String> input;
 
@@ -32,8 +32,7 @@ public class PuzzleOne {
                     //Map its position (rowCount, char position)
                     for (int i = 0; i < row.length(); i++) {
                         char character = row.charAt(i);
-                        //BUG HERE FIXME
-                        if (symbol.matches(String.valueOf(character))) {
+                        if (symbol.contains(String.valueOf(character))) {
                             Position pos = new Position(rowCount, i);
                             foundSymbols.add(new Symbol(symbol, pos));
                         }
