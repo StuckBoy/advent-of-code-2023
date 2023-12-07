@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import day.three.Digit;
 import day.two.Game;
 import day.two.Pull;
 
@@ -103,6 +104,25 @@ public class Util {
     public static int calcCubePower(List<Game> games) {
         AtomicInteger sum = new AtomicInteger();
         games.forEach(game -> sum.addAndGet(game.calcPower()));
+        return sum.get();
+    }
+
+    public static List<String> scanForSymbols(List<String> input) {
+        List<String> symbols = new ArrayList<>();
+        input.forEach(row -> {
+            String[] s = row.split("\\.");
+            for (String symbol : s) {
+                if (!symbols.contains(symbol) && symbol.matches("\\D")) {
+                    symbols.add(symbol);
+                }
+            }
+        });
+        return symbols;
+    }
+
+    public static Integer sumPartNumbers(List<Digit> digits) {
+        AtomicInteger sum = new AtomicInteger();
+        digits.forEach(digit -> sum.addAndGet(digit.getValue()));
         return sum.get();
     }
 }
