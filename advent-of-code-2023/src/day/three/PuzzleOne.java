@@ -57,23 +57,9 @@ public class PuzzleOne {
                     chars.add(String.valueOf(l));
                     digitPositions.add(new Position(p.row(), p.position()));
                     //Moonwalk
-                    int moonwalkPos = 1;
-                    while (isCharBehind(p, moonwalkPos)) {
-                        //Always put it at the front
-                        chars.add(0, getCharBehind(p, moonwalkPos));
-                        Position digitPos = new Position(p.row(), p.position() - moonwalkPos);
-                        digitPositions.add(digitPos);
-                        moonwalkPos++;
-                    }
+                    checkBehind(p, chars, digitPositions);
                     //Run
-                    int runPos = 1;
-                    while (isCharAhead(p, runPos)) {
-                        //Always put it at the back
-                        chars.add(getCharAhead(p, runPos));
-                        Position digitPos = new Position(p.row(), p.position() + runPos);
-                        digitPositions.add(digitPos);
-                        runPos++;
-                    }
+                    checkAhead(p, chars, digitPositions);
                     Digit nextDigit = new Digit(chars, digitPositions);
                     boolean seen = false;
                     //Store the digit if we haven't seen it before
@@ -92,6 +78,26 @@ public class PuzzleOne {
             }
         }
         return neighboringDigits;
+    }
+
+    private static void checkBehind(Position p, List<String> chars, List<Position> digitPositions) {
+        int moonwalkPos = 1;
+        while (isCharBehind(p, moonwalkPos)) {
+            chars.addFirst(getCharBehind(p, moonwalkPos));
+            Position digitPos = new Position(p.row(), p.position() - moonwalkPos);
+            digitPositions.add(digitPos);
+            moonwalkPos++;
+        }
+    }
+
+    private static void checkAhead(Position p, List<String> chars, List<Position> digitPositions) {
+        int runPos = 1;
+        while (isCharAhead(p, runPos)) {
+            chars.addLast(getCharAhead(p, runPos));
+            Position digitPos = new Position(p.row(), p.position() + runPos);
+            digitPositions.add(digitPos);
+            runPos++;
+        }
     }
 
     private static boolean isCharBehind(Position p, int rowPos) {
@@ -128,18 +134,5 @@ public class PuzzleOne {
         int pos = p.position();
         char value = input.get(row).charAt(pos + rowPos);
         return String.valueOf(value);
-    }
-
-    private static List<Position> extrapolate(Position p, int behind, int ahead) {
-        List<Position> positions = new ArrayList<>();
-        while (ahead - behind != 0) {
-            if (isCharAhead(p, behind)) {
-                int cursor = p.position()+(behind);
-                Position newPosition = new Position(p.row(), cursor);
-                positions.add(newPosition);
-            }
-            behind++;
-        }
-        return positions;
     }
 }
