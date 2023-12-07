@@ -24,10 +24,8 @@ public class PuzzleOne {
     private static List<Symbol> locateSymbols(List<String> input, List<String> symbols) {
         List<Symbol> foundSymbols = new ArrayList<>();
         int rowCount = 0;
-        //Iterate over each row
         for (String row : input) {
             for (String symbol : symbols) {
-                //If we find a symbol
                 if (row.contains(symbol)) {
                     //Map its position (rowCount, char position)
                     for (int i = 0; i < row.length(); i++) {
@@ -56,9 +54,7 @@ public class PuzzleOne {
                     List<Position> digitPositions = new ArrayList<>();
                     chars.add(String.valueOf(l));
                     digitPositions.add(new Position(p.row(), p.position()));
-                    //Moonwalk
                     checkBehind(p, chars, digitPositions);
-                    //Run
                     checkAhead(p, chars, digitPositions);
                     Digit nextDigit = new Digit(chars, digitPositions);
                     storeDigitIfNew(nextDigit, neighboringDigits);
