@@ -61,19 +61,7 @@ public class PuzzleOne {
                     //Run
                     checkAhead(p, chars, digitPositions);
                     Digit nextDigit = new Digit(chars, digitPositions);
-                    boolean seen = false;
-                    //Store the digit if we haven't seen it before
-                    for (Digit digit : neighboringDigits) {
-                        if (digit.equal(nextDigit)) {
-                            seen = true;
-                        }
-                        if (seen) {
-                            break;
-                        }
-                    }
-                    if (!seen) {
-                        neighboringDigits.add(nextDigit);
-                    }
+                    storeDigitIfNew(nextDigit, neighboringDigits);
                 }
             }
         }
@@ -87,16 +75,6 @@ public class PuzzleOne {
             Position digitPos = new Position(p.row(), p.position() - moonwalkPos);
             digitPositions.add(digitPos);
             moonwalkPos++;
-        }
-    }
-
-    private static void checkAhead(Position p, List<String> chars, List<Position> digitPositions) {
-        int runPos = 1;
-        while (isCharAhead(p, runPos)) {
-            chars.addLast(getCharAhead(p, runPos));
-            Position digitPos = new Position(p.row(), p.position() + runPos);
-            digitPositions.add(digitPos);
-            runPos++;
         }
     }
 
@@ -118,6 +96,16 @@ public class PuzzleOne {
         return String.valueOf(value);
     }
 
+    private static void checkAhead(Position p, List<String> chars, List<Position> digitPositions) {
+        int runPos = 1;
+        while (isCharAhead(p, runPos)) {
+            chars.addLast(getCharAhead(p, runPos));
+            Position digitPos = new Position(p.row(), p.position() + runPos);
+            digitPositions.add(digitPos);
+            runPos++;
+        }
+    }
+
     private static boolean isCharAhead(Position p, int rowPos) {
         int row = p.row();
         int pos = p.position();
@@ -134,5 +122,21 @@ public class PuzzleOne {
         int pos = p.position();
         char value = input.get(row).charAt(pos + rowPos);
         return String.valueOf(value);
+    }
+
+    private static void storeDigitIfNew(Digit nextDigit, List<Digit> neighboringDigits) {
+        boolean seen = false;
+        //Store the digit if we haven't seen it before
+        for (Digit digit : neighboringDigits) {
+            if (digit.equal(nextDigit)) {
+                seen = true;
+            }
+            if (seen) {
+                break;
+            }
+        }
+        if (!seen) {
+            neighboringDigits.add(nextDigit);
+        }
     }
 }
